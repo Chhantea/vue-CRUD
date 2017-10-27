@@ -1,0 +1,77 @@
+<div class="container">
+  <div id="employees">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Manager</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr 
+       is="employee-row"
+       v-for = "employee in employees"
+       :employee="employee">
+     </tr>
+    </tbody>
+  </table>
+      <div class="jumbotron" id="mew-emp">
+<h1 class="center-text">Employees</h1>
+
+ <div class="row">
+        <div class="col-md-4">
+          <!-- Input -->
+          <input type="text" v-model="employee.name"><br>
+          <!-- Validation errors -->
+          <span style="color:red">{{ errors.name }}</span>
+        </div>
+        <div class="col-md-4">
+          <!-- Input -->
+          <input type="text" v-model="employee.email"><br>
+          <!-- Validation errors -->
+          <span style="color:red">{{ errors.email }}</span>
+        </div>
+        <div class="col-md-1"><input type="checkbox" v-model="employee.manager"></div>
+        <!-- button click calls hireEmployee -->
+        <div class="col-md-3"><button  class="btn btn-info" @click="hireEmployee">Hire</button></div>
+      </div>
+</div>
+</div>
+
+</div>
+<script type="text/x-template" id="employee-row">
+  <tr>
+    <td>
+      <!-- Show input when in edit mode -->
+      <div v-if="editMode">
+        <input type="text" v-model="employee.name"><br>
+        <span style="color:red">{{ errors.name }}</span>
+      </div>
+      <div v-else>{{ employee.name }}</div>
+    </td>
+    <td>
+      <div v-if="editMode">
+        <input type="text" v-model="employee.email"><br>
+        <span style="color:red">{{ errors.email }}</span>
+      </div>
+      <div v-else>{{ employee.email }}</div>
+    </td>
+    <td>
+      <div v-if="editMode">
+        <input type="checkbox" v-model="employee.manager">
+      </div>
+      <div v-else>{{ employee.manager ? '&#10004;' : '' }}</div>
+    </td>
+    <td>
+      <!-- Save button calls updateEmployee -->
+      <button v-if="editMode" @click="updateEmployee">Save</button>
+      <!-- Edit button puts row into edit mode -->
+      <button v-else @click="editMode = true" class="btn btn-warning btn-sm">Edit</button>
+      <!-- Promote / Demote based on current status -->
+      <button class="btn btn-success btn-sm" v-if="!editMode" @click="toggleManagerStatus">{{ employee.manager ? 'Demote' : 'Promote' }}</button>
+    </td>
+  </tr>
+</script>
+
