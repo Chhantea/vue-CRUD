@@ -32,6 +32,12 @@ class EmployeeController < ApplicationController
 			end
 		end
 	end
+	def destroy
+		Eployee.find(params[:id]).destroy
+		respond_to do |format|
+			format.json { render :json =>{},:status => :no_content}
+		end
+	end
    private
    def emp_params
    	params.require(:employee).permit(:name,:email,:manager)

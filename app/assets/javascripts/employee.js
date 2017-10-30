@@ -16,6 +16,16 @@
       this.employee.manager = !this.employee.manager
       this.updateEmployee()
     },
+      fireEmployee: function(){
+    var that = this
+    $.ajax({
+      method: 'DELETE',
+      url: '/employee/' + that.employee.id + '.json',
+      success: function(res){
+        that.$remove()
+      }
+    })
+  },
     // ajax call for updating an employee
     updateEmployee: function () {
       var that = this;
@@ -35,7 +45,8 @@
         }
       })
     }
-  }
+  },
+
   })
   var employees = new Vue({
     el: '#employees',
